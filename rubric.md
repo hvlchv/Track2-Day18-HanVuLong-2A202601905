@@ -8,10 +8,10 @@ eight. A submission where `make run-all` is green has satisfied the
 mechanical half of the rubric by construction — the remaining judgement is
 whether the student can *explain* the numbers.
 
-```bash
+```bashv
 make setup && make smoke && make data && make data-ai && make test && make run-all
 ```
-
+ 
 Two paths are supported for NB1–NB4 (lightweight `deltalake` vs Spark/Docker).
 Both write the **same on-disk Delta format**, so evidence from either counts:
 

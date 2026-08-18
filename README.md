@@ -8,7 +8,7 @@ Tám notebook, hai nửa:
 * **NB5–NB8 — lakehouse 2026.** Iceberg và **catalog như control plane**, 4 job maintenance bắt buộc, multimodal + vector trong bảng, agent trajectory + provenance (EU AI Act Art. 10).
 
 Tất cả chạy **offline**: không API key, không Docker, không JVM, không tải model, không tải DuckDB extension.
-
+ 
 ---
 
 ## Quick Start

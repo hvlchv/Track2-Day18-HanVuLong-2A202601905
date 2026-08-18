@@ -1,7 +1,16 @@
 # ---
 # jupyter:
 #   jupytext:
-#     formats: py:percent
+#     formats: ipynb,py:percent
+#     text_representation:
+#       extension: .py
+#       format_name: percent
+#       format_version: '1.3'
+#       jupytext_version: 1.19.5
+#   kernelspec:
+#     display_name: Python 3 (ipykernel)
+#     language: python
+#     name: python3
 # ---
 
 # %% [markdown]
@@ -148,6 +157,34 @@ assert n_dates >= 7, (
     f"Gold has only {n_dates} dates — slide deliverable requires ≥ 7. "
     "Re-run `make data` (the generator spreads across 7 UTC days)."
 )
+
+# %%
+from pathlib import Path
+
+checks = {
+    "Bronze, Silver, Gold tables exist": all(
+        (Path(p) / "_delta_log").is_dir()
+        for p in (BRONZE, SILVER, GOLD)
+    ),
+    "Silver has fewer rows than Bronze": silver_n < bronze_n,
+    "Gold covers >= 7 dates x 3 models": (
+        n_dates >= 7
+        and n_models == 3
+        and gold_df.height == n_dates * n_models
+    ),
+    "cost_usd and error_rate are populated": (
+        gold_df["cost_usd"].is_not_null().all()
+        and gold_df["cost_usd"].sum() > 0
+        and gold_df["error_rate"].is_not_null().all()
+        and gold_df["error_rate"].sum() > 0
+    ),
+}
+
+for name, passed in checks.items():
+    print(f"  [{'PASS' if passed else 'FAIL'}] {name}")
+
+assert all(checks.values()), "NB4 incomplete — see FAIL rows above"
+print("\nNB4 complete.")
 
 # %% [markdown]
 # ## ✅ Deliverable check
